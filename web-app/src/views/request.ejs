@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="content-type"
+        content="text/html; chareset=UTF-8">
+    <title><%=title %></title>
+    <link type="text/css" href=".style.css" rel="stylesheet">
+</head>
+
+<body>
+    <head>
+        <h1><%=title %></h1>
+    </head>
+    <div role="main">
+        <p><%-content %></p>
+        <form action="/request" method="post">
+        <p>From: <input type="text" name="companyFrom"></p>
+        <p>To: <input type="text" name="companyTo"></p>
+        <p>Data: <input type="text" name="dataAttribute"></p>
+        <p>User: <input type="text" name="objectUsr"></p>
+        <p>Purpose: <input type="text" name="purpose"></p>
+        <p>requestCount: <input type="text" name="requestCount"></p>
+        <p><input type="submit" name="send" value="Request"></p>
+        </form>
+    </div>
+</body>
+</html>
