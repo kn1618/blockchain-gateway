@@ -42,9 +42,9 @@ app.post("/request", (req, res) => {
          content: 'Your Request has been sent',
          link:{href:'/', text: 'Back to top page!'}
         });
-    /* network.requestInfo(req.body.companyFrom, req.body.companyTo, req.body.dataAttribute, req.body.objectUsr, req.body.purpose, req.body.requestCount)
+    network.requestInfo(req.body.companyFrom, req.body.companyTo, req.body.dataAttribute, req.body.objectUsr, req.body.purpose, req.body.requestCount)
     .then((response) => {
-        res.send(response);}); */
+        res.send(response);});
     });
 
 // 承認ページ
@@ -57,8 +57,8 @@ app.get("/approval", (req, res) => {
 app.post("/approval", (req, res) => {
     res.render(path.join(path.join(process.cwd(), viewspath), 'approval_completed.ejs'),
         {content: 'Completed!'});
-    /* network.approval(req.body.name).then((response) => {
-        res.send(response);}); */
+    network.approval(req.body.name).then((response) => {
+        res.send(response);});
     });
     
 // 受領通知ページ
@@ -76,8 +76,8 @@ app.post("/receipt", (req, res) => {
          content: 'Completed!',
          link:{href:'/', text: 'Back to top page!'}
         });
-    /* network.receiptNotice(req.body.message).then((response) => {
-        res.send(response);}); */
+    network.receiptNotice(req.body.message).then((response) => {
+        res.send(response);});
     }); 
 
 
