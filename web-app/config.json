@@ -1,9 +1,9 @@
 {
-    "connection_file": "mychannel_fabcar_profile.json",
+    "connection_file": "mychannel_tracechain_profile.json",
     "appAdmin": "app-admin",
     "appAdminSecret": "app-adminpw",
     "orgMSPID": "Org1msp",
-    "caName": "184.172.233.173:30968",
+    "caName": "173.193.82.106:30585",
     "userName": "user1",
     "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
 }

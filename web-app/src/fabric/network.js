@@ -42,10 +42,10 @@ exports.requestInfo = async function(companyFrom, companyTo, dataAttribute, obje
         await gateway.connect(ccp, { wallet, identity: userName, discovery: gatewayDiscovery });
 
         // Get the network (channel) our contract is deployed to.
-        const network = await gateway.getNetwork('mychannel');
+        const network = await gateway.getNetwork('mychannel1');
 
         // Get the contract from the network.
-        const contract = network.getContract('gateway');
+        const contract = network.getContract('tracechain');
 
         // Submit the specified transaction.
         await contract.submitTransaction('requestInfo', companyFrom, companyTo, dataAttribute, objectUsr, purpose, requestCount);
@@ -87,10 +87,10 @@ exports.approval = async function(name) {
         await gateway.connect(ccp, { wallet, identity: userName, discovery: gatewayDiscovery });
 
         // Get the network (channel) our contract is deployed to.
-        const network = await gateway.getNetwork('mychannel');
+        const network = await gateway.getNetwork('mychannel1');
 
         // Get the contract from the network.
-        const contract = network.getContract('gateway');
+        const contract = network.getContract('tracechain');
 
         // Submit the specified transaction.
         await contract.submitTransaction('approval', name);
@@ -132,10 +132,10 @@ exports.receiptNotice = async function(message) {
         await gateway.connect(ccp, { wallet, identity: userName, discovery: gatewayDiscovery });
 
         // Get the network (channel) our contract is deployed to.
-        const network = await gateway.getNetwork('mychannel');
+        const network = await gateway.getNetwork('mychannel1');
 
         // Get the contract from the network.
-        const contract = network.getContract('gateway');
+        const contract = network.getContract('tracechain');
 
         // Submit the specified transaction.
         await contract.submitTransaction('receiptNotice', message);

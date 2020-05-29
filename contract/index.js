@@ -4,7 +4,7 @@
 
 'use strict';
 
-const BlockChain_GateWay = require('./lib/gateway');
+const TraceChain = require('./lib/tracechain');
 
-module.exports.BlockChain_GateWay = BlockChain_GateWay;
-module.exports.contracts = [ BlockChain_GateWay ];
+module.exports.TraceChain = TraceChain;
+module.exports.contracts = [ TraceChain ];

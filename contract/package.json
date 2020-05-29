@@ -1,7 +1,7 @@
 {
-    "name": "gateway",
+    "name": "tracechain",
     "version": "1.0.0",
-    "description": "Gateway contract implemented in JavaScript",
+    "description": "fabcar contract implemented in JavaScript",
     "main": "index.js",
     "engines": {
         "node": ">=8",
