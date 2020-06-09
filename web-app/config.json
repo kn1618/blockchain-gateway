@@ -1,9 +1,9 @@
 {
-    "connection_file": "mychannel_tracechain_profile.json",
+    "connection_file": "Org1msp_profile.json",
     "appAdmin": "app-admin",
     "appAdminSecret": "app-adminpw",
     "orgMSPID": "Org1msp",
-    "caName": "173.193.82.106:30585",
+    "caName": "184.172.234.170:31920",
     "userName": "user1",
     "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
 }
