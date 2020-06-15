@@ -13,14 +13,13 @@
     </head>
     <div role="main">
         <p><%-content %></p>
-        <form action="/request" method="post">
-        <p>From: <input type="text" name="companyFrom"></p>
-        <p>To: <input type="text" name="companyTo"></p>
-        <p>Data: <input type="text" name="dataAttribute"></p>
-        <p>User: <input type="text" name="objectUsr"></p>
-        <p>Purpose: <input type="text" name="purpose"></p>
-        <p>requestCount: <input type="text" name="requestCount"></p>
-        <p><input type="submit" name="send" value="Request"></p>
+        <form action="/request" method="post"> 
+        <p>提供元: <input type="text" name="companyFrom"></p>  
+        <p>提供先: <input type="text" name="companyTo"></p>
+        <p>提供情報: <input type="text" name="dataId"></p>
+        <p>対象ユーザ: <input type="text" name="objectUsr"></p>
+        <p>使途: <input type="text" name="purpose"></p>        
+        <p><input type="submit" name="send" value="情報提供依頼"></p>
         </form>
     </div>
 </body>

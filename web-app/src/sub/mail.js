@@ -10,7 +10,8 @@ var receiveEmailAddress = 'knakanishi1618@gmail.com'
 var senderEmailAddress = 'nakanishi1618@gmail.com'
 var senderEmailPassword = 'Y89ud2mb'
 
-exports.requestMailSend = async function(companyFrom, companyTo, dataAttribute, objectUsr, purpose, requestCount){
+// 提供依頼メール送信処理（企業 ⇨ ユーザ）
+exports.requestMailSend = async function(companyFrom, companyTo, dataAttribute, objectUsr, purpose){
 
 var readHTMLFile = (path, callback) => {
     fs.readFile(path, {encoding: 'utf-8'}, (err, html) => {
@@ -37,8 +38,7 @@ readHTMLFile(path.join(path.join(process.cwd(), mailviewspath),'request-mail.htm
         companyTo: companyTo,
         dataAttribute: dataAttribute,
         objectUsr: objectUsr,
-        purpose: purpose,
-        requestCount: requestCount
+        purpose: purpose
     };
     var htmlToSend = template(replacements);
     var mailData = {
@@ -57,7 +57,52 @@ readHTMLFile(path.join(path.join(process.cwd(), mailviewspath),'request-mail.htm
   });
 };
 
+// 提供依頼メール送信処理（ユーザ ⇨ 区役所）
+exports.offerMailSend = async function(objectUser, dataAttribute, companyTo){
 
+    var readHTMLFile = (path, callback) => {
+        fs.readFile(path, {encoding: 'utf-8'}, (err, html) => {
+            if(err){
+                throw err;
+            } else {
+                callback(null, html);
+            }
+        });
+    }
+    var transporter = nodemailer.createTransport({
+                        host: 'smtp.gmail.com',
+                        port: 465,
+                        secure: true,
+                        auth: {
+                            user: senderEmailAddress,
+                            pass: senderEmailPassword
+                        }
+    });
+    readHTMLFile(path.join(path.join(process.cwd(), mailviewspath),'offer-mail.html'), (err, html) => {
+        var template = handlebars.compile(html);
+        var replacements = {
+            companyto: objectUser,
+            objuser: companyTo,
+            data_id: dataAttribute
+        };
+        var htmlToSend = template(replacements);
+        var mailData = {
+            from: senderEmailAddress,
+            to: receiveEmailAddress,
+            subject:  `「${replacements.data_id}」情報提供のご依頼`,
+            html: htmlToSend              
+        };
+        transporter.sendMail(mailData, (error, info) => {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+    });
+};
+
+// 受領通知メール送信処理
 exports.receiptMailSend = async function(message){
 
     var readHTMLFile = (path, callback) => {
@@ -97,5 +142,5 @@ exports.receiptMailSend = async function(message){
                 console.log('Email sent: ' + info.response);
             }
         });
-      });
-    };
+    });
+};
