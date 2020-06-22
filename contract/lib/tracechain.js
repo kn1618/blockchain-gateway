@@ -5,12 +5,14 @@
 'use strict';
 
 const { Contract } = require('fabric-contract-api');
+require('date-utils');
 
 class TraceChain extends Contract {
 
     // 初期化
     async initLedger(ctx) {
         console.info('============= START : Initialize Ledger ===========');
+        let now = new Date();
         const requests = [
             {
                 companyFrom: '杉並区役所',
@@ -18,7 +20,9 @@ class TraceChain extends Contract {
                 dataAttribute: '住所',
                 objectUser: '中西康介',
                 purpose: '土地登記のため',
-                omitFlg: false
+                transactionTime: now.toFormat('yyyy/mm/dd HH24:MI:SS'),
+                omitFlg: false,
+                status: '情報提供済'
             }
         ];
 
@@ -60,15 +64,9 @@ class TraceChain extends Contract {
     }
 
     // 対象のレコード情報取得
-    async querySingleRecord(ctx, sign) {
+    async querySingleRecord(ctx, key) {
 
-        // 検証時のリクエストの回数に応じて変更。要注意。
-        // sign = keyとする。
-        // ==========
-        sign = 1
-        // ==========
-
-        const res = await ctx.stub.getState(sign);
+        const res = await ctx.stub.getState(key);
         if (res){
             let Record;
             try {
@@ -77,17 +75,20 @@ class TraceChain extends Contract {
                 console.log(err);
                 Record = res.toString('utf8');
             }
-            return JSON.stringify([{ sign, Record }]);
+            return JSON.stringify([{ key, Record }]);
         }
         else{
-            console.err('Did not find the car with carNo ' + sign);
+            console.err('Did not find the record with No ' + key);
             return [];
         }
     }
 
     // 情報提供依頼処理（企業 ⇨ ユーザ）
     async requestInfo(ctx, newKey, companyFrom, companyTo, dataAttribute, objectUsr, purpose) {
-        console.info('============= START : Request Information（企業 ⇨ ユーザ） ===========');       
+        console.info('============= START : Request Information（企業 ⇨ ユーザ） ==========='); 
+        
+        let now = new Date();
+
         // 情報提供依頼レコード
         const requestData = {
             companyFrom,
@@ -95,31 +96,95 @@ class TraceChain extends Contract {
             dataAttribute,
             objectUsr,
             purpose,
-            omitFlg: false
+            transactionTime: now.toFormat('yyyy/mm/dd HH24:MI:SS'),
+            omitFlg: false,
+            status: '情報提供依頼済(to_user)'
         };
         await ctx.stub.putState(newKey, Buffer.from(JSON.stringify(requestData)));
         console.info('============= END : Request Infomation（企業 ⇨ ユーザ） ===========');
     }
 
     // 情報提供承認処理
-    async approval(ctx, sign) {
+    async approval(ctx, newKey, companyFrom, companyTo, objectUser, dataAttribute, purpose) {
         console.info('============= START : Approval Completion ===========');
-        console.info(`${sign}様のご署名`)
+        
+        let now = new Date();
+
+        // 情報提供承認レコード
+        const approvalData = {
+            companyFrom,
+            companyTo,
+            dataAttribute,
+            objectUser,
+            purpose,
+            transactionTime: now.toFormat('yyyy/mm/dd HH24:MI:SS'),
+            omitFlg: false,
+            status: '情報提供承認済'
+        };
+        await ctx.stub.putState(newKey, Buffer.from(JSON.stringify(approvalData)));
         console.info('============= END : Approval Completion ===========');
     }
 
+    // 情報提供否認処理
+    async nonapproval(ctx, newKey, companyFrom, companyTo, objectUser, dataAttribute, purpose) {
+        console.info('============= START : Nonapproval Completion ===========');
+        
+        let now = new Date();
+
+        // 情報提供否認レコード
+        const nonapprovalData = {
+            companyFrom,
+            companyTo,
+            dataAttribute,
+            objectUser,
+            purpose,
+            transactionTime: now.toFormat('yyyy/mm/dd HH24:MI:SS'),
+            omitFlg: false,
+            status: '情報提供否認済'
+        };
+        await ctx.stub.putState(newKey, Buffer.from(JSON.stringify(nonapprovalData)));
+        console.info('============= END : Nonapproval Completion ===========');
+    }
+
     // 情報提供依頼処理（ユーザ ⇨ 区役所）
-    async offerinfo(ctx, objectUser, dataAttribute, companyTo) {
+    async offerinfo(ctx, newKey, companyFrom, companyTo, objectUser, dataAttribute, purpose) {
         console.info('============= START : Offer Information（ユーザ ⇨ 区役所） ===========');
-        console.info(`${objectUser}`)
-        console.info(`${dataAttribute}`)
-        console.info(`${companyTo}`)
+
+        let now = new Date();
+
+        // 情報提供依頼レコード
+        const userRequestData = {
+            companyFrom,
+            companyTo,
+            dataAttribute,
+            objectUser,
+            purpose,
+            transactionTime: now.toFormat('yyyy/mm/dd HH24:MI:SS'),
+            omitFlg: false,
+            status: '情報提供依頼済(to_com)'
+        };
+        await ctx.stub.putState(newKey, Buffer.from(JSON.stringify(userRequestData)));
         console.info('============= END : Offer Infomation（ユーザ ⇨ 区役所） ===========');
     }
 
     // 情報受領通知処理
-    async receiptNotice(ctx, message) {
+    async receiptNotice(ctx, newKey, companyFrom, companyTo, objectUser, dataAttribute, purpose) {
         console.info('============= START : Receipt Notification ===========');
+        
+        let now = new Date();
+
+        // 情報受領通知レコード
+        const receiptData = {
+            companyFrom,
+            companyTo,
+            dataAttribute,
+            objectUser,
+            purpose,
+            transactionTime: now.toFormat('yyyy/mm/dd HH24:MI:SS'),
+            omitFlg: false,
+            status: '情報受領通知済(to_user)'
+        };
+        await ctx.stub.putState(newKey, Buffer.from(JSON.stringify(receiptData)));
         console.info('============= END : Receipt Notification ===========');
     }
 

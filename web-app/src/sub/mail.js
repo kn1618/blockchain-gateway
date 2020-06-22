@@ -103,7 +103,7 @@ exports.offerMailSend = async function(objectUser, dataAttribute, companyTo){
 };
 
 // 受領通知メール送信処理
-exports.receiptMailSend = async function(message){
+exports.receiptMailSend = async function(receiptDay, comment){
 
     var readHTMLFile = (path, callback) => {
         fs.readFile(path, {encoding: 'utf-8'}, (err, html) => {
@@ -126,7 +126,8 @@ exports.receiptMailSend = async function(message){
     readHTMLFile(path.join(path.join(process.cwd(), mailviewspath),'receipt-mail.html'), (err, html) => {
         var template = handlebars.compile(html);
         var replacements = {
-            message: message
+            receiptday: receiptDay,
+            comment: comment
         };
         var htmlToSend = template(replacements);
         var mailData = {

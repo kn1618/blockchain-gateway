@@ -9,7 +9,10 @@
 <body>
     <div role="main">
         <p><%-content %></p>
-        <p>Please close browser</p>
+        <p>ブラウザを閉じてください。</p>
     </div>
+    <script>
+        var result = window.confirm('以降、依頼元から同様の情報提供依頼があった場合、nご承認手続きを省略しますか？')
+    </script>
 </body>
 </html>
