@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="content-type"
+        content="text/html; chareset=UTF-8">
+    <title><%=title %></title>
+    <link type="text/css" href=".style.css" rel="stylesheet">
+</head>
+
+<body>
+    <head>
+        <h1><%=title %></h1>
+    </head>
+    <div role="main">
+        <p><%-content %></p>
+        <form action="/deletion" method="post"> 
+        <p>(*)は入力必須項目</p>
+        <table border="1" style="border-collapse: collapse">
+            <tr>
+              <td align="left" width="120" bgcolor="#ccffcc">氏名(*): </td>
+              <td align="left"><input type="text" name="userName"></td>
+            </tr>
+            <tr>
+                <td align="left" width="120" bgcolor="#ccffcc">削除依頼先(*):</td>
+                <td align="left"><input type="text" name="deletionCom"></td>
+            </tr>
+            <tr>
+                <td align="left" width="120" bgcolor="#ccffcc">削除情報(*): </td>
+                <td align="left"><input type="text" name="deletionInfo"></td>
+            </tr>
+        </table>
+        <br>
+        <p><input type="submit" name="send" value="削除依頼"></p>
+        </form>
+    </div>
+</body>
+</html>

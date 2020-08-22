@@ -11,15 +11,33 @@
     <head>
         <h1><%=title %></h1>
     </head>
-    <div role="main">
+    <div class="sample1b">
         <p><%-content %></p>
         <form action="/request" method="post"> 
-        <p>(*)は入力必須項目</p>
-        <p>提供元(*):<input type="text" name="companyFrom"></p>  
-        <p>提供先(*):<input type="text" name="companyTo"></p>
-        <p>提供情報(*):<input type="text" name="dataId"></p>
-        <p>対象ユーザ(*):<input type="text" name="objectUsr"></p>
-        <p>使途:<input type="text" name="purpose"></p>        
+            <p>(*)は入力必須項目</p>
+            <table border="1" style="border-collapse: collapse">
+              <tr>
+                <td align="left" width="120" bgcolor="#ccffcc">提供元(*) </td>
+                <td align="left"><input type="text" name="companyFrom"></td>
+              </tr>
+              <tr>
+                <td align="left" width="120" bgcolor="#ccffcc">提供先(*) </td>
+                <td align="left"><input type="text" name="companyTo"></td>
+              </tr>        
+              <tr>
+                <td align="left" width="120" bgcolor="#ccffcc">提供情報(*) </td>
+                <td align="left"><input type="text" name="dataAttribute"></td>
+              </tr>        
+              <tr>
+                <td align="left" width="120" bgcolor="#ccffcc">対象ユーザ(*) </td>
+                <td align="left"><input type="text" name="objectUser"></td>
+              </tr>
+              <tr>
+                <td align="left" width="120" bgcolor="#ccffcc">使途 </td>
+                <td align="left"><input type="text" name="purpose"></td>
+              </tr>
+            </table>
+            <br>
         <p><input type="submit" name="send" value="提供依頼"></p>
         </form>
     </div>

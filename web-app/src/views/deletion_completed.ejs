@@ -12,9 +12,10 @@
         <h1><%=title %></h1>
     </head>
     <div role="main">
-        <p><a href="<%=link1.href %>"><%=link1.text %></a></p>
-        <p><a href="<%=link2.href %>"><%=link2.text %></a></p>
-        <p><a href="<%=link3.href %>"><%=link3.text %></a></p>
+        <p><%-content %></p>
+        <form action="/deletion" method="post">
+        <p><a href="<%=link.href %>"><%=link.text %></a></p>
+        </form>
     </div>
 </body>
 </html>

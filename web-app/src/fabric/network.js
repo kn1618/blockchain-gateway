@@ -1,4 +1,3 @@
-
 'use strict';
 
 const { FileSystemWallet, Gateway } = require('fabric-network');
@@ -19,91 +18,8 @@ const ccpPath = path.join(process.cwd(), connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
-exports.queryAllRecords = async function() {
-
-    let response = {};
-    try {
-        // Create a new file system based wallet for managing identities.
-        const walletPath = path.join(process.cwd(), '/wallet');
-        const wallet = new FileSystemWallet(walletPath);
-        console.log(`Wallet path: ${walletPath}`);
-
-        // Check to see if we've already enrolled the user.
-        const userExists = await wallet.exists(userName);
-        if (!userExists) {
-            console.log('An identity for the user ' + userName + ' does not exist in the wallet');
-            console.log('Run the registerUser.js application before retrying');
-            response.error = 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first';
-            return response;
-        }
-
-        // Create a new gateway for connecting to our peer node.
-        const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: userName, discovery: gatewayDiscovery });
-
-        // Get the network (channel) our contract is deployed to.
-        const network = await gateway.getNetwork('mychannel');
-
-        // Get the contract from the network.
-        const contract = network.getContract('tracechain');
-
-        // Evaluate the specified transaction.
-        const result = await contract.evaluateTransaction('queryAllRecords');
-        //console.log('check6');
-        //console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
-
-        return result;
-
-    } catch (error) {
-        console.error(`Failed to evaluate transaction: ${error}`);
-        response.error = error.message;
-        return response;
-    }
-};
-
-exports.querySingleRecord = async function(key) {
-    let response = {};
-    try {
-        // Create a new file system based wallet for managing identities.
-        const walletPath = path.join(process.cwd(), '/wallet');
-        const wallet = new FileSystemWallet(walletPath);
-        console.log(`Wallet path: ${walletPath}`);
-
-        // Check to see if we've already enrolled the user.
-        const userExists = await wallet.exists(userName);
-        if (!userExists) {
-            console.log('An identity for the user ' + userName + ' does not exist in the wallet');
-            console.log('Run the registerUser.js application before retrying');
-            response.error = 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first';
-            return response;
-        }
-
-        // Create a new gateway for connecting to our peer node.
-        const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: userName, discovery: gatewayDiscovery });
-
-        // Get the network (channel) our contract is deployed to.
-        const network = await gateway.getNetwork('mychannel');
-
-        // Get the contract from the network.
-        const contract = network.getContract('tracechain');
-
-        // Evaluate the specified transaction.
-        const result = await contract.evaluateTransaction('querySingleRecord', sign);
-        //console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
-
-        return result;
-
-    } catch (error) {
-        console.error(`Failed to evaluate transaction: ${error}`);
-        response.error = error.message;
-        return response;
-    }
-};
-
-
 // request infomation transaction
-exports.requestInfo = async function(newKey, companyFrom, companyTo, dataAttribute, objectUsr, purpose, ) {
+exports.requestInfo = async function(companyFrom, companyTo, dataAttribute, objectUser, purpose) {
     let response = {};
     try {
         // Create a new file system based wallet for managing identities.
@@ -131,7 +47,7 @@ exports.requestInfo = async function(newKey, companyFrom, companyTo, dataAttribu
         const contract = network.getContract('tracechain');
 
         // Submit the specified transaction.
-        await contract.submitTransaction('requestInfo', newKey, companyFrom, companyTo, dataAttribute, objectUsr, purpose);
+        await contract.submitTransaction('requestInfo', companyFrom, companyTo, dataAttribute, objectUser, purpose);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
@@ -148,7 +64,7 @@ exports.requestInfo = async function(newKey, companyFrom, companyTo, dataAttribu
 };
 
 // approval transaction
-exports.approval = async function(newKey, companyFrom, companyTo, objectUser, dataAttribute, purpose) {
+exports.approval = async function(signature, apploval) {
     let response = {};
     try {
         // Create a new file system based wallet for managing identities.
@@ -176,7 +92,7 @@ exports.approval = async function(newKey, companyFrom, companyTo, objectUser, da
         const contract = network.getContract('tracechain');
 
         // Submit the specified transaction.
-        await contract.submitTransaction('approval', newKey, companyFrom, companyTo, objectUser, dataAttribute, purpose);
+        await contract.submitTransaction('approval', signature, apploval);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
@@ -193,7 +109,7 @@ exports.approval = async function(newKey, companyFrom, companyTo, objectUser, da
 };
 
 // nonapproval transaction
-exports.nonapproval = async function(newKey, companyFrom, companyTo, objectUser, dataAttribute, purpose) {
+exports.nonapproval = async function(signature, nonapploval) {
     let response = {};
     try {
         // Create a new file system based wallet for managing identities.
@@ -221,7 +137,7 @@ exports.nonapproval = async function(newKey, companyFrom, companyTo, objectUser,
         const contract = network.getContract('tracechain');
 
         // Submit the specified transaction.
-        await contract.submitTransaction('nonapproval', newKey, companyFrom, companyTo, objectUser, dataAttribute, purpose);
+        await contract.submitTransaction('nonapproval', signature, nonapploval);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
@@ -238,7 +154,7 @@ exports.nonapproval = async function(newKey, companyFrom, companyTo, objectUser,
 };
 
 // offerinfo transaction
-exports.offerinfo = async function(newKey, companyFrom, companyTo, objectUser, dataAttribute, purpose) {
+exports.offerinfo = async function(signature, apploval) {
     let response = {};
     try {
         // Create a new file system based wallet for managing identities.
@@ -266,7 +182,7 @@ exports.offerinfo = async function(newKey, companyFrom, companyTo, objectUser, d
         const contract = network.getContract('tracechain');
 
         // Submit the specified transaction.
-        await contract.submitTransaction('offerinfo', newKey, companyFrom, companyTo, objectUser, dataAttribute, purpose);
+        await contract.submitTransaction('offerinfo', signature, apploval);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
@@ -281,9 +197,10 @@ exports.offerinfo = async function(newKey, companyFrom, companyTo, objectUser, d
         return response;
     }
 };
+
 
 // receiptNotice transaction
-exports.receiptNotice = async function(newKey, companyFrom, companyTo, objectUser, dataAttribute, purpose) {
+exports.receiptNotice = async function(receiptDay, comment) {
     let response = {};
     try {
         // Create a new file system based wallet for managing identities.
@@ -311,7 +228,7 @@ exports.receiptNotice = async function(newKey, companyFrom, companyTo, objectUse
         const contract = network.getContract('tracechain');
 
         // Submit the specified transaction.
-        await contract.submitTransaction('receiptNotice', newKey, companyFrom, companyTo, objectUser, dataAttribute, purpose);
+        await contract.submitTransaction('receiptNotice', receiptDay, comment);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
@@ -326,3 +243,51 @@ exports.receiptNotice = async function(newKey, companyFrom, companyTo, objectUse
         return response;
     }
 };
+
+// deleteinfo transaction
+exports.deleteinfo = async function(user, deletionCom, deletionInfo) {
+    let response = {};
+    try {
+        // Create a new file system based wallet for managing identities.
+        const walletPath = path.join(process.cwd(), '/wallet');
+        const wallet = new FileSystemWallet(walletPath);
+        console.log(`Wallet path: ${walletPath}`);
+
+        // Check to see if we've already enrolled the user.
+        const userExists = await wallet.exists(userName);
+        if (!userExists) {
+            console.log('An identity for the user ' + userName + ' does not exist in the wallet');
+            console.log('Run the registerUser.js application before retrying');
+            response.error = 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first';
+            return response;
+        }
+
+        // Create a new gateway for connecting to our peer node.
+        const gateway = new Gateway();
+        await gateway.connect(ccp, { wallet, identity: userName, discovery: gatewayDiscovery });
+
+        // Get the network (channel) our contract is deployed to.
+        const network = await gateway.getNetwork('mychannel');
+
+        // Get the contract from the network.
+        const contract = network.getContract('tracechain');
+
+        // Submit the specified transaction.
+        await contract.submitTransaction('deleteinfo', user, deletionCom, deletionInfo);
+        console.log('Transaction has been submitted');
+
+        // Disconnect from the gateway.
+        await gateway.disconnect();
+
+        response.msg = 'Request Transaction has been submitted';
+        return response;
+
+    } catch (error) {
+        console.error(`Failed to submit transaction: ${error}`);
+        response.error = error.message;
+        return response;
+    }
+};
+
+
+

@@ -13,9 +13,18 @@
     </head>
     <div role="main">
         <form action="/receipt" method="post">
-        <p>データ受領日: <input type="date" name="receiptday"></p>
-        <p>コメント: <input type="text" name="comment">
-           <input type="submit" name="receipt" value="Receipt"></p>
+            <table border="1" style="border-collapse: collapse">
+                <tr>
+                  <td align="left" width="120" bgcolor="#ccffcc">データ受領日: </td>
+                  <td align="left"><input type="date" name="receiptday"></td>
+                </tr>
+                <tr>
+                    <td align="left" width="120" bgcolor="#ccffcc">コメント: </td>
+                    <td align="left"><input type="text" name="comment"></td>
+                  </tr>
+            </table>
+            <br>
+           <input type="submit" name="receipt" value="受領通知"></p>
         </form>
     </div>
 </body>

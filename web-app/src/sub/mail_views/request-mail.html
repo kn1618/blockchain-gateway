@@ -6,11 +6,23 @@
         <title>test</title>
     </head>
     <body>
-        <p>提供元: {{companyFrom}}</p>
-        <p>提供先: {{companyTo}}</p>
-        <p>提供情報: {{dataAttribute}}</p>
-        <p>対象ユーザ: {{objectUsr}}</p>
-        <p>使途: {{purpose}}</p>
-        <p><a href="http://localhost:3000/approval">承認ページへ</a></p>
+        <br>
+        {{objectUser}} 様 <br>
+        <br>
+        いつもお世話になっております。<br>
+        XX株式会社です。<br>
+        <br>
+        標題の件、{{companyTo}}様より{{objectUser}}様の <br>
+        「{{dataAttribute}}」情報の提供依頼がございました。<br>
+        <br>
+        つきましては、以下リンクより承認・否認のご回答を頂きますよう<br>
+        宜しくお願い致します。<br>
+        <br>
+        <p><a href="http://localhost:3000/approval">承認ページへ</a></p><br>
+        <br>
+        ----------------------------<br>
+        XX株式会社<br>
+        （問い合わせ先：000-0000-0000）<br>
+        ----------------------------<br>
     </body>
 </html>
