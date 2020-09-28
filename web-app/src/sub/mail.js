@@ -40,11 +40,11 @@ var transporter = nodemailer.createTransport({
 readHTMLFile(path.join(path.join(process.cwd(), mailviewspath),'request-mail.html'),(err, html) => {
     var template = handlebars.compile(html);
     var replacements = {
-        companyFrom: companyFrom,
+        //companyFrom: companyFrom,
         companyTo: companyTo,
         dataAttribute: dataAttribute,
         objectUser: objectUser,
-        purpose: purpose
+        //purpose: purpose
     };
     var htmlToSend = template(replacements);
     var mailData = {

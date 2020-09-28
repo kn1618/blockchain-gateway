@@ -20,6 +20,7 @@ const ccp = JSON.parse(ccpJSON);
 
 // request infomation transaction
 exports.requestInfo = async function(companyFrom, companyTo, dataAttribute, objectUser, purpose) {
+    let ctx = "";
     let response = {};
     try {
         // Create a new file system based wallet for managing identities.
@@ -47,7 +48,7 @@ exports.requestInfo = async function(companyFrom, companyTo, dataAttribute, obje
         const contract = network.getContract('tracechain');
 
         // Submit the specified transaction.
-        await contract.submitTransaction('requestInfo', companyFrom, companyTo, dataAttribute, objectUser, purpose);
+        await contract.submitTransaction('requestInfo', ctx, companyFrom, companyTo, dataAttribute, objectUser, purpose);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
@@ -65,6 +66,7 @@ exports.requestInfo = async function(companyFrom, companyTo, dataAttribute, obje
 
 // approval transaction
 exports.approval = async function(signature, apploval) {
+    let ctx = "";
     let response = {};
     try {
         // Create a new file system based wallet for managing identities.
@@ -92,7 +94,7 @@ exports.approval = async function(signature, apploval) {
         const contract = network.getContract('tracechain');
 
         // Submit the specified transaction.
-        await contract.submitTransaction('approval', signature, apploval);
+        await contract.submitTransaction('approval', ctx, signature, apploval);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
@@ -110,6 +112,7 @@ exports.approval = async function(signature, apploval) {
 
 // nonapproval transaction
 exports.nonapproval = async function(signature, nonapploval) {
+    let ctx = "";
     let response = {};
     try {
         // Create a new file system based wallet for managing identities.
@@ -137,7 +140,7 @@ exports.nonapproval = async function(signature, nonapploval) {
         const contract = network.getContract('tracechain');
 
         // Submit the specified transaction.
-        await contract.submitTransaction('nonapproval', signature, nonapploval);
+        await contract.submitTransaction('nonapproval', ctx, signature, nonapploval);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
@@ -155,6 +158,7 @@ exports.nonapproval = async function(signature, nonapploval) {
 
 // offerinfo transaction
 exports.offerinfo = async function(signature, apploval) {
+    let ctx = "";
     let response = {};
     try {
         // Create a new file system based wallet for managing identities.
@@ -182,7 +186,7 @@ exports.offerinfo = async function(signature, apploval) {
         const contract = network.getContract('tracechain');
 
         // Submit the specified transaction.
-        await contract.submitTransaction('offerinfo', signature, apploval);
+        await contract.submitTransaction('offerinfo', ctx, signature, apploval);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
@@ -201,6 +205,7 @@ exports.offerinfo = async function(signature, apploval) {
 
 // receiptNotice transaction
 exports.receiptNotice = async function(receiptDay, comment) {
+    let ctx = "";
     let response = {};
     try {
         // Create a new file system based wallet for managing identities.
@@ -228,7 +233,7 @@ exports.receiptNotice = async function(receiptDay, comment) {
         const contract = network.getContract('tracechain');
 
         // Submit the specified transaction.
-        await contract.submitTransaction('receiptNotice', receiptDay, comment);
+        await contract.submitTransaction('receiptNotice', ctx, receiptDay, comment);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
@@ -246,6 +251,7 @@ exports.receiptNotice = async function(receiptDay, comment) {
 
 // deleteinfo transaction
 exports.deleteinfo = async function(user, deletionCom, deletionInfo) {
+    let ctx = "";
     let response = {};
     try {
         // Create a new file system based wallet for managing identities.

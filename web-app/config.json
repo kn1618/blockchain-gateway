@@ -3,7 +3,7 @@
     "appAdmin": "app-admin",
     "appAdminSecret": "app-adminpw",
     "orgMSPID": "Org1msp",
-    "caName": "184.172.234.170:31920",
+    "caName": "159.122.178.181:30751",
     "userName": "user1",
     "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
 }
